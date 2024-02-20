@@ -57,6 +57,15 @@ window.addEventListener("keyup", (e) =>{
 });
 
 function lostGame() {
-    let lostScreen = document.getElementById('endScreenLost');
-    lostScreen.classList.remove('d-none');
+    //document.getElementById('endScreenLost').classList.remove('d-none');
+    //document.getElementById('lostImage').classList.remove('d-none');
+    //document.getElementById('replayImage').classList.remove('d-none');
+}
+
+function replay(){
+    startGame();
+    document.getElementById('endScreenLost').classList.add('d-none');
+    document.getElementById('lostImage').classList.add('d-none');
+    document.getElementById('replayImage').classList.add('d-none');
+
 }

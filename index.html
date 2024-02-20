@@ -36,7 +36,13 @@
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>
     <div class="endScreenLost d-none" id="endScreenLost">
-        <img class="lostImage" id="lostImage" src="img/9_intro_outro_screens/game_over/game_over!.png">
+        <img class="lostImage d-none" id="lostImage" src="img/9_intro_outro_screens/game_over/game_over!.png">
+        <img class="replayImage d-none" id="replayImage" onclick="replay()" src="img/10_symbol/replay.png">
     </div>
+
+    
+    <audio class="d-none" id="autoplay" muted playsinline controls>
+        <source src="audio/coin.mp3"  id="coinAudio" type="audio/mp3">
+    </audio>
 </body>
 </html>

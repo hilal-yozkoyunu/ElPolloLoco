@@ -15,6 +15,15 @@ class World {
   endboss = new Endboss();
   lastBottleThrowTime = 0;
 
+  //coin_sound = new Audio('audio/coin.mp3');
+
+
+
+
+
+
+
+
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -96,7 +105,8 @@ class World {
     for (let i = this.level.coins.length - 1; i >= 0; i--) {
       let coin = this.level.coins[i];
       if (this.character.isColliding(coin)) {
-        //this.collectingCoin_sound.play();
+        //this.coin_sound.play();
+        document.getElementById('autoplay').play();
         this.statusBarCoin.collectCoins();
         this.statusBarCoin.setPercentage(this.statusBarCoin.amountCoins);
         this.level.coins.splice(i, 1);

@@ -28,12 +28,24 @@ canvas{
     display: none;
 }
 .lostImage{
-width: 720px;
-height: 480px;
-background-color: rgba(0, 0, 0, 0.547);
+    width: 720px;
+    height: 480px;
 }
 .endScreenLost{
     position: absolute;
     top: 88px;
-}
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.547);
 
+}
+.replayImage{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    position: fixed;
+    background-color: orange;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+
+}
