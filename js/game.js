@@ -55,3 +55,8 @@ window.addEventListener("keyup", (e) =>{
     }
     
 });
+
+function lostGame() {
+    let lostScreen = document.getElementById('endScreenLost');
+    lostScreen.classList.remove('d-none');
+}

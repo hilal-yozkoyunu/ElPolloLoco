@@ -27,3 +27,13 @@ canvas{
 .d-none{
     display: none;
 }
+.lostImage{
+width: 720px;
+height: 480px;
+background-color: rgba(0, 0, 0, 0.547);
+}
+.endScreenLost{
+    position: absolute;
+    top: 88px;
+}
+
