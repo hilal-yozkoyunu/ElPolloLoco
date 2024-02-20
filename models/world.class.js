@@ -34,47 +34,8 @@ class World {
       this.checkCollisionsCoins();
       this.refillHealth();
       this.checkBottleOnEnemy();
-      /*
-      this.checkCollisions();
-      this.checkCollisionsCoin();
-      this.checkCollisionsBottle();
-      this.checkThrowObjects();
-      this.checkJumpingOnEnemy();*/
     }, 1000 / 60);
-  } /*
-    checkThrowObjects(){
-        if (this.keyboard.D){
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
-        }
-    }*/
-  /*
-  checkThrowObjects() {
-    if (this.keyboard.D) {
-      let bottle = new ThrowableObject(
-        this.character.x + 100,
-        this.character.y + 100
-      );
-      this.throwableObjects.push(bottle);
-    }
-    this.throwableObjects.forEach((throwableObject) => {
-      this.level.enemies.forEach((enemy) => {
-        if (!enemy.isDead() && throwableObject.isColliding(enemy)) {
-          console.log("Enemy Hit, energy", enemy.getEnergy());
-          enemy.hit();
-          this.statusBarEndboss.setPercentage(enemy.getEnergy());
-            //energi -5 
-        } else if (enemy.isDead() && enemy.getEnergy() == 0){ /////////
-            console.log("Enemy dead, energy ", enemy.getEnergy());
-            enemy.kill();
-            setTimeout(() => {
-                let position = this.level.enemies.indexOf(enemy);
-                this.level.enemies.splice(position, 1);
-              }, 2000);
-        }
-      });
-    });
-  }*/
+  } 
 
   refillHealth() {
     if (this.keyboard.KEY_F && this.statusBarCoin.amountCoins > 0) {
@@ -84,30 +45,7 @@ class World {
       this.statusBar.setPercentage(this.character.energy);
     }
   }
-  /**
-   * Checks if the character can throw a bottle and manages bottle throwing.
-   * This method ensures that there is a cooldown between bottle throws.
-   
-  checkThrowObjects() {
-    // Check if the "D" key is pressed, the character has bottles in inventory, and if enough time has passed since the last bottle throw
-    if (
-      this.keyboard.KEY_D &&
-      this.statusBarBottle.amountBottles > 0 &&
-      Date.now() - this.lastBottleThrowTime >= 1000
-    ) {
-      // Creates a new ThrowableObject at the current position of the character
-      let bottle = new ThrowableObject(
-        this.character.x + 10,
-        this.character.y + 100
-      );
-      this.throwableObjects.push(bottle);
-      this.statusBarBottle.amountBottles -= 1;
-      this.statusBarBottle.setAmountBottles(this.statusBarBottle.amountBottles);
 
-      // Update the timestamp of the last bottle throw
-      this.lastBottleThrowTime = Date.now();
-    }
-  }*/
   checkThrowObjects() {
     // Check if the "D" key is pressed, the character has bottles in inventory, and if enough time has passed since the last bottle throw
     if (this.keyboard.D && this.statusBarBottle.amountBottles > 0 && Date.now() - this.lastBottleThrowTime >= 200) {
@@ -121,12 +59,6 @@ class World {
         this.lastBottleThrowTime = Date.now();
     }
 }
-
-
-
-
-
-
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
@@ -146,9 +78,6 @@ class World {
     });
   }
 
-  /**
-   * Checks for collisions between the character and bottles.
-   */
   checkCollisionsBottles() {
     for (let i = this.level.bottles.length - 1; i >= 0; i--) {
       let bottle = this.level.bottles[i];
@@ -163,9 +92,6 @@ class World {
     }
   }
 
-  /**
-   * Checks for collisions between the character and coins.
-   */
   checkCollisionsCoins() {
     for (let i = this.level.coins.length - 1; i >= 0; i--) {
       let coin = this.level.coins[i];
@@ -178,9 +104,6 @@ class World {
     }
   }
 
-  /**
-   * Checks if throwable objects hit enemies and handles the interactions.
-   */
   checkBottleOnEnemy() {
     this.level.enemies.forEach((enemy) => {
       this.throwableObjects.forEach((bottle) => {
@@ -189,11 +112,6 @@ class World {
     });
   }
 
-  /**
-   * Handles the collision between a bottle and an enemy.
-   * @param {ThrowableObject} bottle - The throwable object.
-   * @param {Enemy} enemy - The enemy object.
-   */
   handleBottleCollision(bottle, enemy) {
     if (bottle.isColliding(enemy)) {
       if (enemy instanceof Chicken) {
@@ -211,33 +129,20 @@ class World {
     }
   }
 
-  /**
-   * Handles the collision between a bottle and a Chicken enemy.
-   * @param {ThrowableObject} bottle - The throwable object.
-   * @param {Chicken} chicken - The Chicken enemy.
-   */
   handleChickenCollision(bottle, chicken) {
     chicken.isDead = true;
     //this.chickenDead_sound.play();
     this.removeEnemyAfterDelay(chicken);
   }
 
-  /**
-   * Handles the collision between a bottle and a ChickenSmall enemy.
-   * @param {ThrowableObject} bottle - The throwable object.
-   * @param {ChickenSmall} chickenSmall - The ChickenSmall enemy.
-   */
+
   handleChickenSmallCollision(bottle, chickenSmall) {
     chickenSmall.isDead = true;
     //this.smallChickenDead_sound.play();
     this.removeEnemyAfterDelay(chickenSmall);
   }
 
-  /**
-   * Handles the collision between a bottle and an Endboss enemy.
-   * @param {ThrowableObject} bottle - The throwable object.
-   * @param {Endboss} endboss - The Endboss enemy.
-   */
+
   handleEndbossCollision(bottle, endboss) {
     endboss.hit();
     this.statusBarEndboss.setPercentage(endboss.energy);
@@ -245,49 +150,13 @@ class World {
     endboss.playAnimation(endboss.IMAGES_HURT);
   }
 
-  /**
-   * Removes a bottle from the throwableObjects list after collision.
-   * @param {ThrowableObject} bottle - The throwable object to be removed.
-   */
+
   removeBottleAfterCollision(bottle) {
     const bottleIndex = this.throwableObjects.indexOf(bottle);
     if (bottleIndex > -1) {
       this.throwableObjects.splice(bottleIndex, 1);
     }
   }
-
-  /*
-  //collision between character and enemies
-  checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
-      }
-    });
-  }
-
-  //collision between character and coins
-  checkCollisionsCoin() {
-    this.level.coins.forEach((coin, index) => {
-      if (this.character.isColliding(coin)) {
-        this.character.collectCoins();
-        this.statusBarCoin.setPercentage(this.character.coin);
-        this.level.coins.splice(index, 1);
-      }
-    });
-  }
-
-  //collision between enemy and bottle
-  checkCollisionsBottle() {
-    this.level.bottles.forEach((bottle, index) => {
-      if (this.character.isColliding(bottle)) {
-        this.character.collectBottles();
-        this.statusBarBottle.setPercentage(this.character.bottle);
-        this.level.bottles.splice(index, 1);
-      }
-    });
-  }*/
 
   //collision by jumping
   checkJumpingOnEnemy() {
@@ -354,18 +223,7 @@ class World {
       this.addToMap(o);
     });
   }
-  /*
-    addToMap(mo){
-        if(mo.otherDirection){
-            this.flipImage(mo);
-        }
-        mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
 
-        if (mo.otherDirection){
-            this.flipImageBack(mo);
-        }
-    }*/
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);

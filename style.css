@@ -24,3 +24,6 @@ canvas{
     font-size: 30px;
     cursor: pointer;
 }
+.d-none{
+    display: none;
+}
