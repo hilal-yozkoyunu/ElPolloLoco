@@ -69,3 +69,11 @@ function replay(){
     document.getElementById('replayImage').classList.add('d-none');
 
 }
+
+function showControls(){
+    document.getElementById('controller').classList.remove('d-none');
+}
+
+function closeControls(){
+    document.getElementById('controller').classList.add('d-none');
+}

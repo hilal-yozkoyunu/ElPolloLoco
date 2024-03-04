@@ -15,14 +15,12 @@ class World {
   endboss = new Endboss();
   lastBottleThrowTime = 0;
 
-  //coin_sound = new Audio('audio/coin.mp3');
-
-
-
-
-
-
-
+  coin_sound = new Audio('../audio/coin3.mp3');
+  bottle_sound = new Audio('../audio/bottle4.mp3');
+  chicken_sound = new Audio('../audio/chicken3.mp3');
+  chicken_sound_small = new Audio('../audio/chicken2.mp3');
+  endboss_sound = new Audio('../audio/chicken.mp3');
+  throwBottle_sound = new Audio('../bottle.mp3');
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -31,6 +29,10 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    /* Event Listener hinzufügen, um die Soundwiedergabe auf Benutzerinteraktion zu beschränken
+    document.getElementById('startGameButton').addEventListener('click', () => {
+      this.initAudio();
+    });*/
   }
   setWorld() {
     this.character.world = this;
@@ -45,6 +47,17 @@ class World {
       this.checkBottleOnEnemy();
     }, 1000 / 60);
   } 
+/*
+  initAudio(audioFilename) {
+    // Hier initialisierst du das Audio-Element mit der übergebenen Datei
+    let audio = new Audio(audioFilename);
+    audio.addEventListener('canplay', () => {
+      audio.play().catch(error => {
+        console.error('Audiowiedergabe fehlgeschlagen:', error);
+      });
+    });
+    audio.load();
+  }*/
 
   refillHealth() {
     if (this.keyboard.KEY_F && this.statusBarCoin.amountCoins > 0) {
@@ -91,7 +104,8 @@ class World {
     for (let i = this.level.bottles.length - 1; i >= 0; i--) {
       let bottle = this.level.bottles[i];
       if (this.character.isColliding(bottle)) {
-        //this.collectingBottle_sound.play();
+        //this.initAudio('../audio/bottle.mp3');
+        this.bottle_sound.play();
         this.statusBarBottle.collectBottle();
         this.statusBarBottle.setAmountBottles(
           this.statusBarBottle.amountBottles
@@ -105,8 +119,7 @@ class World {
     for (let i = this.level.coins.length - 1; i >= 0; i--) {
       let coin = this.level.coins[i];
       if (this.character.isColliding(coin)) {
-        //this.coin_sound.play();
-        document.getElementById('autoplay').play();
+        this.coin_sound.play();
         this.statusBarCoin.collectCoins();
         this.statusBarCoin.setPercentage(this.statusBarCoin.amountCoins);
         this.level.coins.splice(i, 1);
@@ -141,14 +154,14 @@ class World {
 
   handleChickenCollision(bottle, chicken) {
     chicken.isDead = true;
-    //this.chickenDead_sound.play();
+    this.chicken_sound.play();
     this.removeEnemyAfterDelay(chicken);
   }
 
 
   handleChickenSmallCollision(bottle, chickenSmall) {
     chickenSmall.isDead = true;
-    //this.smallChickenDead_sound.play();
+    this.chicken_sound.play();
     this.removeEnemyAfterDelay(chickenSmall);
   }
 
@@ -157,6 +170,8 @@ class World {
     endboss.hit();
     this.statusBarEndboss.setPercentage(endboss.energy);
     bottle.hitEndboss();
+    this.throwBottle_sound.play();
+    this.endboss_sound.play();
     endboss.playAnimation(endboss.IMAGES_HURT);
   }
 
@@ -178,11 +193,11 @@ class World {
       ) {
         if (enemy instanceof Chicken) {
           enemy.isDead = true;
-          //this.chickenDead_sound.play();
+          this.chicken_sound.play();
           this.removeEnemyAfterDelay(enemy);
         } else if (enemy instanceof ChickenSmall) {
          enemy.isDead = true;
-        //this.smallChickenDead_sound.play();
+        this.chicken_sound_small.play();
           this.removeEnemyAfterDelay(enemy);
         }
       }

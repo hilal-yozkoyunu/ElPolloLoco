@@ -32,7 +32,39 @@
         <div>
             <img class="startImage" id="startImage" src="img/9_intro_outro_screens/start/startscreen_1.png">
         </div>
-        <div class="startGameButton" id="startGameButton" onclick="startGame()" >Start Game</div>
+
+        <div class="controller d-none" id="controller">
+            <div onclick="closeControls()">
+                <img class="closeImg" src="./img/10_symbol/close.png">
+            </div>
+            <div class="controllerDivs" id="controllerDivs">
+                <div class="explanation">
+                    <img class="explanationImage" src="./img/10_symbol/left.png">
+                    <p>LEFT</p>
+                </div>
+                <div class="explanation">
+                    <img class="explanationImage" src="./img/10_symbol/right.png">
+                    <p>RIGHT</p>
+                </div>
+                <div class="explanation">
+                    <p>SPACE</p>
+                    <p>JUMP</p>
+                </div>
+                <div class="explanation">
+                    <p>D</p>
+                    <p>THROW BOTTLES</p>
+                </div>
+                <div class="explanation">
+                    <img class="explanationImage" src="./img/10_symbol/fullscreen.png">
+                    <p>FULLSCREEN</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="startGameButton" id="startGameButton">
+            <img class="symbolPlay" src="./img/10_symbol/play4.png" onclick="startGame()">
+            <img class="symbolController" src="./img/10_symbol/controller.png" onclick="showControls()">
+        </div>
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>
     <div class="endScreenLost d-none" id="endScreenLost">
