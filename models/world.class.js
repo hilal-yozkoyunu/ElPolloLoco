@@ -20,7 +20,7 @@ class World {
   chicken_sound = new Audio('../audio/chicken3.mp3');
   chicken_sound_small = new Audio('../audio/chicken2.mp3');
   endboss_sound = new Audio('../audio/chicken.mp3');
-  throwBottle_sound = new Audio('../bottle.mp3');
+  throwBottle_sound = new Audio('../audio/bottle.mp3');
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -29,10 +29,6 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
-    /* Event Listener hinzufügen, um die Soundwiedergabe auf Benutzerinteraktion zu beschränken
-    document.getElementById('startGameButton').addEventListener('click', () => {
-      this.initAudio();
-    });*/
   }
   setWorld() {
     this.character.world = this;
@@ -43,22 +39,12 @@ class World {
       this.checkThrowObjects();
       this.checkCollisionsBottles();
       this.checkCollisionsCoins();
-      this.refillHealth();
+      //this.refillHealth();
       this.checkBottleOnEnemy();
     }, 1000 / 60);
   } 
-/*
-  initAudio(audioFilename) {
-    // Hier initialisierst du das Audio-Element mit der übergebenen Datei
-    let audio = new Audio(audioFilename);
-    audio.addEventListener('canplay', () => {
-      audio.play().catch(error => {
-        console.error('Audiowiedergabe fehlgeschlagen:', error);
-      });
-    });
-    audio.load();
-  }*/
 
+  /*
   refillHealth() {
     if (this.keyboard.KEY_F && this.statusBarCoin.amountCoins > 0) {
       this.statusBarCoin.amountCoins -= 1;
@@ -66,18 +52,14 @@ class World {
       this.statusBarCoin.setPercentage(this.statusBarCoin.amountCoins);
       this.statusBar.setPercentage(this.character.energy);
     }
-  }
+  }*/
 
   checkThrowObjects() {
-    // Check if the "D" key is pressed, the character has bottles in inventory, and if enough time has passed since the last bottle throw
     if (this.keyboard.D && this.statusBarBottle.amountBottles > 0 && Date.now() - this.lastBottleThrowTime >= 200) {
-        // Creates a new ThrowableObject at the current position of the character
         let bottle = new ThrowableObject(this.character.x + 10, this.character.y + 100);
         this.throwableObjects.push(bottle);
         this.statusBarBottle.amountBottles -= 1;
         this.statusBarBottle.setAmountBottles(this.statusBarBottle.amountBottles);
-
-        // Update the timestamp of the last bottle throw
         this.lastBottleThrowTime = Date.now();
     }
 }
@@ -93,18 +75,19 @@ class World {
           this.checkJumpingOnEnemy();
         } else {
           this.character.hit();
-          //this.pain_sound.play();
           this.statusBar.setPercentage(this.character.energy);
         }
       }
     });
+    if (this.character.isDead){
+      lost();
+    }
   }
 
   checkCollisionsBottles() {
     for (let i = this.level.bottles.length - 1; i >= 0; i--) {
       let bottle = this.level.bottles[i];
       if (this.character.isColliding(bottle)) {
-        //this.initAudio('../audio/bottle.mp3');
         this.bottle_sound.play();
         this.statusBarBottle.collectBottle();
         this.statusBarBottle.setAmountBottles(
@@ -144,8 +127,6 @@ class World {
       } else if (enemy instanceof Endboss && !enemy.isHurt()) {
         this.handleEndbossCollision(bottle, enemy);
       }
-
-      // Remove the bottle once the splash animation is complete
       if (!bottle.isSplashing) {
         this.removeBottleAfterCollision(bottle);
       }
@@ -208,7 +189,7 @@ class World {
     setTimeout(() => {
       const enemyIndex = this.level.enemies.indexOf(enemy);
       if (enemyIndex > -1) {
-        this.level.enemies.splice(enemyIndex, 1); // Removing the enemy at the index location found
+        this.level.enemies.splice(enemyIndex, 1);
       }
     }, 300);
   }

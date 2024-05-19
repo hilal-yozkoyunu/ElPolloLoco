@@ -10,6 +10,7 @@ function init(){
 function startGame(){
     document.getElementById('startImage').style = "display: none";
     document.getElementById('startGameButton').style = "display: none";
+    displayNone();
 }
 
 window.addEventListener("keydown", (e) =>{
@@ -56,24 +57,33 @@ window.addEventListener("keyup", (e) =>{
     
 });
 
-function lostGame() {
-    //document.getElementById('endScreenLost').classList.remove('d-none');
-    //document.getElementById('lostImage').classList.remove('d-none');
-    //document.getElementById('replayImage').classList.remove('d-none');
-}
-
 function replay(){
+    displayNone();
     startGame();
-    document.getElementById('endScreenLost').classList.add('d-none');
-    document.getElementById('lostImage').classList.add('d-none');
-    document.getElementById('replayImage').classList.add('d-none');
-
 }
 
 function showControls(){
     document.getElementById('controller').classList.remove('d-none');
+    displayNone();
 }
 
 function closeControls(){
     document.getElementById('controller').classList.add('d-none');
+}
+
+function won(){
+    document.getElementById('endScreenWon').classList.remove('d-none');
+}
+
+function lost(){
+    document.getElementById('endScreenLost').classList.remove('d-none');
+}
+
+function displayNone(){
+    document.getElementById('endScreenLost').classList.add('d-none');
+    document.getElementById('endScreenWon').classList.add('d-none');
+    document.getElementById('lostImage').classList.add('d-none');
+    document.getElementById('replayImageWon').classList.add('d-none');
+    document.getElementById('wonImage').classList.add('d-none');
+    document.getElementById('replayImageLost').classList.add('d-none');
 }

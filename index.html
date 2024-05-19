@@ -24,14 +24,11 @@
     <script src="models/coin.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
-    <title>Document</title>
+    <title>EL POLLO LOCO</title>
 </head>
 <body onload="init()">
     <div class="container" id="container">
         <h1>El pollo loco</h1>
-        <div>
-            <img class="startImage" id="startImage" src="img/9_intro_outro_screens/start/startscreen_1.png">
-        </div>
 
         <div class="controller d-none" id="controller">
             <div onclick="closeControls()">
@@ -61,16 +58,27 @@
             </div>
         </div>
 
+        <div class="endScreenLost d-none" id="endScreenLost">
+            <img class="lostImage" id="lostImage" src="img/9_intro_outro_screens/game_over/game_over!.png">
+            <img class="replayImage" id="replayImageLost" onclick="replay()" src="img/10_symbol/replay.png">
+        </div>
+
+        <div class="endScreenWon d-none" id="endScreenWon">
+            <img class="wonImage" id="wonImage" src="img/9_intro_outro_screens/game_over/game_over!.png">
+            <img class="replayImage" id="replayImageWon" onclick="replay()" src="img/10_symbol/replay.png">
+        </div>
+
+        <div>
+            <img class="startImage" id="startImage" src="img/9_intro_outro_screens/start/startscreen_1.png">
+        </div>
+
         <div class="startGameButton" id="startGameButton">
             <img class="symbolPlay" src="./img/10_symbol/play4.png" onclick="startGame()">
             <img class="symbolController" src="./img/10_symbol/controller.png" onclick="showControls()">
         </div>
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>
-    <div class="endScreenLost d-none" id="endScreenLost">
-        <img class="lostImage d-none" id="lostImage" src="img/9_intro_outro_screens/game_over/game_over!.png">
-        <img class="replayImage d-none" id="replayImage" onclick="replay()" src="img/10_symbol/replay.png">
-    </div>
+
 
     
     <audio class="d-none" id="autoplay" muted playsinline controls>

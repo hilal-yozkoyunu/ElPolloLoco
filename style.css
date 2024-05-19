@@ -36,7 +36,16 @@ canvas{
     top: 88px;
     display: flex;
     background-color: rgba(0, 0, 0, 0.547);
-
+}
+.wonImage{
+    width: 720px;
+    height: 480px;
+}
+.endScreenWon{
+    position: absolute;
+    top: 88px;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.547);
 }
 .replayImage{
     width: 60px;
